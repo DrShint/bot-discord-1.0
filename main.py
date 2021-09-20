@@ -15,4 +15,9 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
-client.run(os.environ['TOKEN'])
+@client.event
+async def on_ready():
+    await client.change_presence(activity=discord.Streaming('Developed by: 𝔻𝕣. 𝕊𝕙𝕚𝕟𝕥'))
+    print('Bot is ready.')
+
+client.run('TOKEN')
