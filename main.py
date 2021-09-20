@@ -18,7 +18,7 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 #Possivel sistema de ban
-@commands.command(name='ban')
+'''@commands.command(name='ban')
 async def ban(ctx, coisa):
     user = ctx.message.mentions[0]
     if user.name in lista_ban:
@@ -35,7 +35,7 @@ async def ban(ctx, coisa):
                 await user.kick()
     else:
         lista_ban[user.nam] = [context.message.author.name]
-        await ctx.message.channel.send(f'Voto computado com sucesso! Ban **{user.name}** **1/5**')    
+        await ctx.message.channel.send(f'Voto computado com sucesso! Ban **{user.name}** **1/5**')'''    
 
 @client.event
 async def on_ready():
