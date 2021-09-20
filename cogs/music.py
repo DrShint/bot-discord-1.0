@@ -9,7 +9,7 @@ class music(commands.Cog):
 
         self.is_playing = False
 
-        # 2d array containing [song, channel]
+
         self.music_queue = []
         self.YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
         self.FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
@@ -63,7 +63,7 @@ class music(commands.Cog):
         for command in self.client.commands:
             helptxt += f'**{command}** - {command.help}\n'
         embedhelp = discord.Embed(
-            colour = 1646116,#grey
+            colour = 1646116,
             title=f'Comandos do {self.client.user.name}',
             description = '\n **!p** - Insira um link do YouTube ou o nome da música para adicionar a fila.\n **!q** - Para ver a fila.\n **!skip** - Para pular a música.\n\n Produzido por: **𝔻𝕣. 𝕊𝕙𝕚𝕟𝕥**'
         )
@@ -78,10 +78,9 @@ class music(commands.Cog):
         try:
             voice_channel = ctx.author.voice.channel
         except:
-        #if voice_channel is None:
-            #you need to be connected so that the bot knows where to go
+
             embedvc = discord.Embed(
-                colour= 1646116,#grey
+                colour= 1646116,
                 description = 'Para tocar uma música, primeiro se conecte a um canal de voz.'
             )
             await ctx.send(embed=embedvc)
@@ -90,13 +89,13 @@ class music(commands.Cog):
             song = self.search_yt(query)
             if type(song) == type(True):
                 embedvc = discord.Embed(
-                    colour= 12255232,#red
+                    colour= 12255232,
                     description = 'Algo deu errado! Tente mudar ou configurar a playlist/vídeo ou escrever o nome dele novamente!'
                 )
                 await ctx.send(embed=embedvc)
             else:
                 embedvc = discord.Embed(
-                    colour= 32768,#green
+                    colour= 32768,
                     description = f"Você adicionou a música **{song['title']}** à fila!"
                 )
                 await ctx.send(embed=embedvc)
@@ -130,7 +129,6 @@ class music(commands.Cog):
     async def skip(self, ctx):
         if self.vc != "" and self.vc:
             self.vc.stop()
-            #try to play next in the queue if it exists
             await self.play_music()
             embedvc = discord.Embed(
                 colour= 1646116,#ggrey
@@ -138,7 +136,7 @@ class music(commands.Cog):
             )
             await ctx.send(embed=embedvc)
 
-    @skip.error #Erros para kick
+    @skip.error
     async def skip_error(self,ctx,error):
         if isinstance(error, commands.MissingPermissions):
             embedvc = discord.Embed(
